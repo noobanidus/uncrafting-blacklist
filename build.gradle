@@ -106,7 +106,7 @@ dependencies {
     deobfCompile "baubles:Baubles:${minecraft_sub_version}:${baubles_version}"
     deobfCompile "thaumcraft:Thaumcraft:${minecraft_version}:${thaumcraft_version}"
 
-    shade("org.spongepowered:mixin:0.8.1-SNAPSHOT") {
+    shade("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
         transitive = false
     }
 }
@@ -138,7 +138,6 @@ jar {
         attributes([
                 "FMLCorePluginContainsFMLMod": "true",
                 "FMLCorePlugin"              : "doomanidus.mods.uncraftingblacklist.core.UBLoadingPlugin",
-                "MixinConfigs"               : "mixins.uncraftingblacklist.json",
                 "TweakClass"                 : "org.spongepowered.asm.launch.MixinTweaker",
                 "ForceLoadAsMod"             : "true",
                 "FMLAT"                      : "ub_at.cfg"

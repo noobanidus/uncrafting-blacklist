@@ -1,6 +1,7 @@
 package doomanidus.mods.uncraftingblacklist.mixins;
 
 import doomanidus.mods.uncraftingblacklist.Blacklist;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -17,8 +18,8 @@ import java.util.List;
 
 @Mixin(ContainerTFUncrafting.class)
 @SuppressWarnings("unused")
-public abstract class MixinContainer {
-  @Inject(method = "getRecipesFor(Lnet/minecraft/item/ItemStack;)[Lnet/minecraft/item/crafting/IRecipe;", at = @At(value = "RETURN"), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT, remap = false)
+public class MixinContainerTFUncrafting {
+  @Inject(method = "Ltwilightforest/inventory/ContainerTFUncrafting;getRecipesFor(Lnet/minecraft/item/ItemStack;)[Lnet/minecraft/item/crafting/IRecipe;", at = @At(value = "RETURN"), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT, remap = false)
   private static void getRecipesItemStack(ItemStack stack, CallbackInfoReturnable<IRecipe[]> callbackInfo, List<IRecipe> recipes) {
     List<IRecipe> result = new ArrayList<>();
     for (IRecipe recipe : recipes) {
@@ -29,8 +30,8 @@ public abstract class MixinContainer {
     callbackInfo.setReturnValue(result.toArray(new IRecipe[0]));
   }
 
-  @Inject(method = "getRecipesFor(Lnet/minecraft/inventory/InventoryCrafting;Lnet/minecraft/world/World;)[Lnet/minecraft/item/crafting/IRecipe;", at = @At(value = "RETURN"), cancellable = true, remap = false)
-  private static void getRecipesInventory (InventoryCrafting inventory, World world, CallbackInfoReturnable<IRecipe[]> callbackInfo, List<IRecipe> recipes) {
+  @Inject(method = "Ltwilightforest/inventory/ContainerTFUncrafting;getRecipesFor(Lnet/minecraft/inventory/InventoryCrafting;Lnet/minecraft/world/World;)[Lnet/minecraft/item/crafting/IRecipe;", at = @At(value = "RETURN"), cancellable = true, remap = false)
+  private static void getRecipesInventory(InventoryCrafting inventory, World world, CallbackInfoReturnable<IRecipe[]> callbackInfo, List<IRecipe> recipes) {
     List<IRecipe> result = new ArrayList<>();
     for (IRecipe recipe : recipes) {
       if (!Blacklist.isBlacklisted(recipe, inventory, world)) {

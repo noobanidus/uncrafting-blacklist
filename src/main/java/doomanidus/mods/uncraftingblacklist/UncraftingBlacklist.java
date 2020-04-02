@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod.EventBusSubscriber
-@Mod(modid = UncraftingBlacklist.MODID, name = UncraftingBlacklist.MODNAME, version = UncraftingBlacklist.VERSION)
+@Mod(modid = UncraftingBlacklist.MODID, name = UncraftingBlacklist.MODNAME, version = UncraftingBlacklist.VERSION, dependencies = "required-after:twilightforest;")
 @SuppressWarnings("WeakerAccess")
 public class UncraftingBlacklist {
   public static final String MODID = "uncrafting_blacklist";
