@@ -1,0 +1,22 @@
+[
+  {
+    "modid": "uncrafting_blacklist",
+    "name": "Uncrafting Blacklist",
+    "description": "Prevent items from being uncrafted in the Twilight Forest uncrafting table.",
+    "version": "${version}",
+    "credits": "DoomRater, Noobanidus",
+    "logoFile": "assets/uncraftingbackup/textures/logo.png",
+    "mcversion": "${mc_version}",
+    "url": "http://github.com/duely/uncraftingbackup",
+    "updateUrl": "",
+    "authorList": [
+      "DoomRater",
+      "Noobanidus"
+    ],
+    "parent": "",
+    "screenshots": [],
+    "dependencies": [
+      "forge"
+    ]
+  }
+]
