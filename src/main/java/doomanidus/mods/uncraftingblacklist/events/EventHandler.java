@@ -1,7 +1,7 @@
 package doomanidus.mods.uncraftingblacklist.events;
 
 import doomanidus.mods.uncraftingblacklist.UncraftingBlacklist;
-import doomanidus.mods.uncraftingblacklist.UncraftingBlacklistConfig;
+import doomanidus.mods.uncraftingblacklist.config.UBConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
@@ -20,21 +20,21 @@ public class EventHandler {
 
     if (player instanceof EntityPlayerMP) {
       EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
-      UncraftingBlacklistConfig.synchroniseToPlayer(mpPlayer);
+      UBConfig.synchroniseToPlayer(mpPlayer);
     }
   }
 
   @SubscribeEvent
   public static void onPlayerLoggedIn (PlayerEvent.PlayerLoggedInEvent event) {
     if (!event.player.world.isRemote) {
-      UncraftingBlacklistConfig.clearPlayer(event.player);
+      UBConfig.clearPlayer(event.player);
     }
   }
 
   @SubscribeEvent
   public static void onPlayerLoggedOut (PlayerEvent.PlayerLoggedOutEvent event) {
     if (!event.player.world.isRemote) {
-      UncraftingBlacklistConfig.clearPlayer(event.player);
+      UBConfig.clearPlayer(event.player);
     }
   }
 }

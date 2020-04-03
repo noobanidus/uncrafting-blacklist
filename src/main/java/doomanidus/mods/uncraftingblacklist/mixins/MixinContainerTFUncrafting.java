@@ -1,7 +1,6 @@
 package doomanidus.mods.uncraftingblacklist.mixins;
 
-import doomanidus.mods.uncraftingblacklist.Blacklist;
-import net.minecraft.inventory.Container;
+import doomanidus.mods.uncraftingblacklist.config.Blacklist;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;

@@ -25,4 +25,8 @@ public class PacketHandler {
   public static void sendTo(IMessage message, EntityPlayerMP player) {
     INSTANCE.sendTo(message, player);
   }
+
+  public static void sendToAll(IMessage message) {
+    INSTANCE.sendToAll(message);
+  }
 }

@@ -1,4 +1,4 @@
-package doomanidus.mods.uncraftingblacklist;
+package doomanidus.mods.uncraftingblacklist.config;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -14,13 +14,18 @@ public class Blacklist {
   private static final Set<IRecipe> blacklistedRecipes = new HashSet<>();
   private static final Set<IRecipe> allowedRecipes = new HashSet<>();
 
+  public static void clear () {
+    blacklistedRecipes.clear();
+    allowedRecipes.clear();
+  }
+
   private static boolean calculateBlacklisted(IRecipe recipe, ItemStack stack) {
-    final Ingredient ingredientBlacklist = UncraftingBlacklistConfig.getInputBlacklist();
+    final Ingredient ingredientBlacklist = UBConfig.getInputBlacklist();
     if (ingredientBlacklist.apply(stack)) {
       return true;
     }
 
-    final Ingredient outputBlacklist = UncraftingBlacklistConfig.getOutputsBlacklist();
+    final Ingredient outputBlacklist = UBConfig.getOutputsBlacklist();
     for (Ingredient input : recipe.getIngredients()) {
       for (ItemStack matching : input.getMatchingStacks()) {
         if (outputBlacklist.apply(matching)) {
@@ -33,12 +38,12 @@ public class Blacklist {
   }
 
   private static boolean calculateBlacklisted(IRecipe recipe, InventoryCrafting inventory, World world) {
-    final Ingredient ingredientBlacklist = UncraftingBlacklistConfig.getInputBlacklist();
+    final Ingredient ingredientBlacklist = UBConfig.getInputBlacklist();
     if (ingredientBlacklist.apply(recipe.getRecipeOutput())) {
       return true;
     }
 
-    final Ingredient outputBlacklist = UncraftingBlacklistConfig.getOutputsBlacklist();
+    final Ingredient outputBlacklist = UBConfig.getOutputsBlacklist();
     for (int i = 0; i < inventory.getSizeInventory(); i++) {
       ItemStack inSlot = inventory.getStackInSlot(i);
       if (outputBlacklist.apply(inSlot)) {

@@ -1,9 +1,9 @@
 package doomanidus.mods.uncraftingblacklist.networking;
 
-import doomanidus.mods.uncraftingblacklist.UncraftingBlacklistConfig;
+import doomanidus.mods.uncraftingblacklist.config.SyncInfo;
+import doomanidus.mods.uncraftingblacklist.config.UBConfig;
 import doomanidus.mods.uncraftingblacklist.events.ClientTickHandler;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -14,18 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientSyncPacket implements IMessage {
-  private List<UncraftingBlacklistConfig.SyncInfo> info;
+  private List<SyncInfo> info;
   private boolean inputs = false;
 
   public ClientSyncPacket() {
   }
 
-  public ClientSyncPacket(List<UncraftingBlacklistConfig.SyncInfo> info, boolean inputs) {
+  public ClientSyncPacket(List<SyncInfo> info, boolean inputs) {
     this.info = info;
     this.inputs = inputs;
   }
 
-  public List<UncraftingBlacklistConfig.SyncInfo> getInfo() {
+  public List<SyncInfo> getInfo() {
     return info;
   }
 
@@ -39,7 +39,7 @@ public class ClientSyncPacket implements IMessage {
     this.info = new ArrayList<>();
     int length = buf.readInt();
     for (int i = 0; i < length; i++) {
-      this.info.add(UncraftingBlacklistConfig.SyncInfo.readBuf(buf));
+      this.info.add(SyncInfo.readBuf(buf));
     }
   }
 
@@ -47,7 +47,7 @@ public class ClientSyncPacket implements IMessage {
   public void toBytes(ByteBuf buf) {
     buf.writeBoolean(inputs);
     buf.writeInt(info.size());
-    for (UncraftingBlacklistConfig.SyncInfo i : info) {
+    for (SyncInfo i : info) {
       i.writeBuf(buf);
     }
   }
@@ -62,7 +62,7 @@ public class ClientSyncPacket implements IMessage {
 
     @SideOnly(Side.CLIENT)
     public void handleConfig (ClientSyncPacket message, MessageContext ctx) {
-      UncraftingBlacklistConfig.unsynchronisePlayer(message.getInfo(), message.isInputs());
+      UBConfig.unsynchronisePlayer(message.getInfo(), message.isInputs());
     }
   }
 }

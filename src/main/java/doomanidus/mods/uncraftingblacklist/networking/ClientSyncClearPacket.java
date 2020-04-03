@@ -1,6 +1,6 @@
 package doomanidus.mods.uncraftingblacklist.networking;
 
-import doomanidus.mods.uncraftingblacklist.UncraftingBlacklistConfig;
+import doomanidus.mods.uncraftingblacklist.config.UBConfig;
 import doomanidus.mods.uncraftingblacklist.events.ClientTickHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -32,7 +32,7 @@ public class ClientSyncClearPacket implements IMessage {
 
     @SideOnly(Side.CLIENT)
     public void handleConfig(ClientSyncClearPacket message, MessageContext ctx) {
-      UncraftingBlacklistConfig.clear();
+      UBConfig.clearClient();
     }
   }
 }
