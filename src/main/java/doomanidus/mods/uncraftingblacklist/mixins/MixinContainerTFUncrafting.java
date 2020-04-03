@@ -19,7 +19,7 @@ import java.util.List;
 @Mixin(ContainerTFUncrafting.class)
 @SuppressWarnings("unused")
 public class MixinContainerTFUncrafting {
-  @Inject(method = "Ltwilightforest/inventory/ContainerTFUncrafting;getRecipesFor(Lnet/minecraft/item/ItemStack;)[Lnet/minecraft/item/crafting/IRecipe;", at = @At(value = "RETURN"), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT, remap = false)
+  @Inject(method = "getRecipesFor(Lnet/minecraft/item/ItemStack;)[Lnet/minecraft/item/crafting/IRecipe;", at = @At(value = "RETURN"), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT, remap = false)
   private static void getRecipesItemStack(ItemStack stack, CallbackInfoReturnable<IRecipe[]> callbackInfo, List<IRecipe> recipes) {
     List<IRecipe> result = new ArrayList<>();
     for (IRecipe recipe : recipes) {
@@ -30,7 +30,7 @@ public class MixinContainerTFUncrafting {
     callbackInfo.setReturnValue(result.toArray(new IRecipe[0]));
   }
 
-  @Inject(method = "Ltwilightforest/inventory/ContainerTFUncrafting;getRecipesFor(Lnet/minecraft/inventory/InventoryCrafting;Lnet/minecraft/world/World;)[Lnet/minecraft/item/crafting/IRecipe;", at = @At(value = "RETURN"), cancellable = true, remap = false)
+  @Inject(method = "getRecipesFor(Lnet/minecraft/inventory/InventoryCrafting;Lnet/minecraft/world/World;)[Lnet/minecraft/item/crafting/IRecipe;", at = @At(value = "RETURN"), cancellable = true, remap = false, locals = LocalCapture.CAPTURE_FAILSOFT)
   private static void getRecipesInventory(InventoryCrafting inventory, World world, CallbackInfoReturnable<IRecipe[]> callbackInfo, List<IRecipe> recipes) {
     List<IRecipe> result = new ArrayList<>();
     for (IRecipe recipe : recipes) {

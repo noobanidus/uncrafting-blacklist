@@ -1,10 +1,15 @@
 {
   "package": "doomanidus.mods.uncraftingblacklist.mixins",
-  "plugin": "doomanidus.mods.uncraftingblacklist.mixins.UBMixinPlugin",
+  "required": true,
   "refmap": "mixins.uncraftingblacklist.refmap.json",
   "compatibilityLevel": "JAVA_8",
+  "target": "@env(DEFAULT)",
   "minVersion": "0.6.0",
   "mixins": [
     "MixinContainerTFUncrafting"
-  ]
+  ],
+  "client": [],
+  "injectors": {
+    "maxShiftBy": 10
+  }
 }

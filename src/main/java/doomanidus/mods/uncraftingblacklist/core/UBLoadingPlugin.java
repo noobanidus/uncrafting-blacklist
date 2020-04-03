@@ -15,8 +15,8 @@ import javax.annotation.Nullable;
 import java.util.Map;
 
 @MCVersion(ForgeVersion.mcVersion)
-@SortingIndex(-5000)
-@TransformerExclusions("doomanidus.mods.uncraftingblacklist.core")
+@SortingIndex(-8000)
+//@TransformerExclusions("doomanidus.mods.uncraftingblacklist.core")
 @Name("Uncrafting Blacklist Mixin Loading Plugin")
 public class UBLoadingPlugin implements IFMLLoadingPlugin {
   public static Logger log = LogManager.getLogger("UncraftingBlacklist Core");

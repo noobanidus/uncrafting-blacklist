@@ -14,6 +14,8 @@ public class PacketHandler {
   private static int id = 0;
 
   public static void registerMessages () {
+    registerMessage(ClientSyncPacket.Handler.class, ClientSyncPacket.class, Side.CLIENT);
+    registerMessage(ClientSyncClearPacket.Handler.class, ClientSyncClearPacket.class, Side.CLIENT);
   }
 
   public static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends IMessageHandler<REQ, REPLY>> handler, Class<REQ> message, Side side) {

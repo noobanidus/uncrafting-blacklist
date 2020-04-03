@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Config;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
@@ -20,8 +21,14 @@ import java.util.*;
 
 @Config(modid = UncraftingBlacklist.MODID)
 public class UncraftingBlacklistConfig {
+  public static void configReload (ConfigChangedEvent.OnConfigChangedEvent event) {
+    if (event.getModID().equals(UncraftingBlacklist.MODID)) {
+      clear();
+    }
+  }
+
   @Config.Ignore
-  public static Set<UUID> synchronisedPlayers = new HashSet<>();
+  private static Set<UUID> synchronisedPlayers = new HashSet<>();
 
   @Config.Comment({"List of item inputs for recipes which should be blacklisted from being uncrafted.", "Format: modname:itemname:metadata.", "Non-present metadata will be considered 0. Use * to specify any damage.", "Use: ore:oreDictionaryName to specify an ore dictionary output (i.e., planksWood)"})
   @Config.Name("Uncrafting Blacklist by Inputs")

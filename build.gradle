@@ -32,7 +32,15 @@ minecraft {
     mappings = "${mcp_mappings}"
     useDepAts = true
 
-    coreMod = "doomanidus.mods.uncraftingblacklist.core.UBLoadingPlugin"
+    //coreMod = "doomanidus.mods.uncraftingblacklist.core.UBLoadingPlugin"
+
+    def args = [
+            "-Dfml.coreMods.load=doomanidus.mods.uncraftingblacklist.core.UBLoadingPlugin",
+            "-Dmixin.hotSwap=true",
+            "-Dmixin.checks.interfaces=true"
+    ]
+    clientJvmArgs.addAll(args)
+    serverJvmArgs.addAll(args)
 
     replace "GRADLE:VERSION", project.version
 }
@@ -77,6 +85,7 @@ repositories {
         name = "sponge"
         url = "http://repo.spongepowered.org/maven/"
     }
+    maven { url "http://www.dimdev.org/maven" }
 }
 
 dependencies {
@@ -84,7 +93,7 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
 
 
-    deobfCompile "com.github.teamtwilight.twilightforest:twilightforest-1.12.2:3.11.1019:universal"    
+    deobfCompile "com.github.teamtwilight.twilightforest:twilightforest-1.12.2:3.11.1019:universal"
 
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
 
@@ -106,8 +115,15 @@ dependencies {
     deobfCompile "baubles:Baubles:${minecraft_sub_version}:${baubles_version}"
     deobfCompile "thaumcraft:Thaumcraft:${minecraft_version}:${thaumcraft_version}"
 
-    shade("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
+    shade("org.spongepowered:mixin:0.8") {
         transitive = false
+        exclude module: "asm-commons"
+        exclude module: "asm-tree"
+        exclude module: "launchwrapper"
+        exclude module: "guava"
+        exclude module: "log4j-core"
+        exclude module: "gson"
+        exclude module: "commons-io"
     }
 }
 
@@ -128,7 +144,7 @@ processResources {
     rename '(.+at\\.cfg)', 'META-INF/$1'
 }
 
-task deobfJar (type: Jar) {
+task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = "deobf"
 }
@@ -147,16 +163,9 @@ jar {
     configurations.shade.each { dep ->
         from(project.zipTree(dep)) {
             rename 'LICENSE.txt', 'org/spongepowered/LICENSE.txt'
-
-            exclude 'META-INF/*.SF'
-            exclude 'META-INF/*.RSA'
-            exclude 'META-INF/*.MF'
-
             exclude '**/*.html'
         }
     }
-
-    rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
 artifacts {

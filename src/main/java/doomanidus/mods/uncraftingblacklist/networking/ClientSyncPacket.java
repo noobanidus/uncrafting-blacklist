@@ -37,7 +37,8 @@ public class ClientSyncPacket implements IMessage {
   public void fromBytes(ByteBuf buf) {
     this.inputs = buf.readBoolean();
     this.info = new ArrayList<>();
-    for (int i = 0; i < buf.readInt(); i++) {
+    int length = buf.readInt();
+    for (int i = 0; i < length; i++) {
       this.info.add(UncraftingBlacklistConfig.SyncInfo.readBuf(buf));
     }
   }
@@ -61,7 +62,7 @@ public class ClientSyncPacket implements IMessage {
 
     @SideOnly(Side.CLIENT)
     public void handleConfig (ClientSyncPacket message, MessageContext ctx) {
-
+      UncraftingBlacklistConfig.unsynchronisePlayer(message.getInfo(), message.isInputs());
     }
   }
 }

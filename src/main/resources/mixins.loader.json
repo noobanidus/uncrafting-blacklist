@@ -1,5 +1,5 @@
 {
-  "package": "org.dimdev.jeid.mixin.init",
+  "package": "doomanidus.mods.uncraftingblacklist.mixins",
   "required": true,
   "refmap": "mixins.uncraftingblacklist.refmap.json",
   "target": "@env(INIT)",
